@@ -1,8 +1,13 @@
+import { Outlet } from 'react-router-dom';
+
 const HomeLayout = () => {
   return (
-    <div className="p-6 font-bold text-center underline text-4xl">
-      HomeLayout
-    </div>
+    <>
+      <div className="bg-primary text-white p-6 font-bold text-center  text-4xl capitalize">
+        navbar
+      </div>
+      <Outlet />
+    </>
   );
 };
 
