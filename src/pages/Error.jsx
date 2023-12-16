@@ -1,4 +1,4 @@
-import { useRouteError, Link } from 'react-router-dom';
+import { useRouteError, Link } from "react-router-dom";
 
 const Error = () => {
   const errorResponse = useRouteError();
@@ -6,10 +6,10 @@ const Error = () => {
 
   if (errorResponse.status === 404) {
     return (
-      <main className="grid place-items-center min-h-screen px-8">
+      <main className="grid min-h-screen place-items-center px-8">
         <div className="text-center">
           <p className="text-9xl font-semibold text-primary">404</p>
-          <h1 className="text-3xl font-bold  mt-4 tracking-tight sm:text-5xl">
+          <h1 className="mt-4 text-3xl  font-bold tracking-tight sm:text-5xl">
             Page not found
           </h1>
           <p className="mt-6 text-lg leading-7">
@@ -24,7 +24,7 @@ const Error = () => {
   }
 
   return (
-    <main className="grid place-items-center min-h-[100vh] px-8">
+    <main className="grid min-h-[100vh] place-items-center px-8">
       <h4 className="text-4xl font-bold">Something went wrong...</h4>
     </main>
   );
