@@ -25,7 +25,7 @@ const Login = () => {
         <div className="mt-4">
           <SubmitButton text="login" />
         </div>
-        <button type="button" className="btn btn-secondary">
+        <button type="button" className="btn btn-secondary uppercase">
           guest user
         </button>
         <p className="text-center capitalize">
