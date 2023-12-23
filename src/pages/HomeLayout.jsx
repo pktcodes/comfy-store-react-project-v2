@@ -6,7 +6,9 @@ const HomeLayout = () => {
       <div className="bg-primary p-6 text-center text-4xl font-bold  capitalize text-white">
         navbar
       </div>
-      <Outlet />
+      <section className="align-element py-20">
+        <Outlet />
+      </section>
     </>
   );
 };

@@ -1,7 +1,5 @@
 const About = () => {
-  return (
-    <div className="p-6 font-bold text-center underline text-4xl">About</div>
-  );
+  return <div className="text-4xl font-bold underline">About</div>;
 };
 
 export default About;

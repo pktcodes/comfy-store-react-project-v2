@@ -1,7 +1,5 @@
 const Landing = () => {
-  return (
-    <div className="p-6 font-bold text-center underline text-4xl">Landing</div>
-  );
+  return <div className="text-4xl font-bold underline">Landing</div>;
 };
 
 export default Landing;
