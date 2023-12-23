@@ -21,7 +21,7 @@ const Register = () => {
           <span className="ml-2">
             <Link
               to="/login"
-              className="link-hover link capitalize text-primary"
+              className="link-hover link link-primary capitalize"
             >
               login
             </Link>
