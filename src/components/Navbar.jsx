@@ -1,10 +1,18 @@
-import { BsCart3 } from "react-icons/bs";
+import { useState } from "react";
+import { BsCart3, BsMoonFill, BsSunFill } from "react-icons/bs";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 import NavLinks from "./NavLinks";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(false);
+  console.log(theme);
+
+  const handleTheme = () => {
+    setTheme(!theme);
+  };
+
   return (
     <nav className="bg-base-200">
       <div className="align-element navbar">
@@ -32,7 +40,15 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {/* THEME SETUP */}
+          {/* THEME TOGGLE SETUP */}
+          <label className="swap swap-rotate">
+            {/* this hidden checkbox controls the state */}
+            <input type="checkbox" onClick={handleTheme} />
+            {/* sun icon */}
+            <BsSunFill className="swap-on h-4 w-4" />
+            {/* moon icon */}
+            <BsMoonFill className="swap-off h-4 w-4" />
+          </label>
           {/* CART */}
           <NavLink to="/cart" className="btn btn-circle btn-ghost btn-md ml-4">
             <div className="indicator">
