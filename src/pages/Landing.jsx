@@ -1,5 +1,11 @@
+import { Hero } from "../components";
+
 const Landing = () => {
-  return <div className="text-4xl font-bold underline">Landing</div>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 };
 
 export default Landing;
