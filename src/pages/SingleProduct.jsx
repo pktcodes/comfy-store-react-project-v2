@@ -1,6 +1,6 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
-import { customFetch } from "../utils";
+import { customFetch, formatPrice } from "../utils";
 
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -10,11 +10,41 @@ export const loader = async ({ params }) => {
 
 const SingleProduct = () => {
   const { product } = useLoaderData();
-  console.log(product);
+  const { image, title, company, price, description, colors } =
+    product.attributes;
+  const dollarsAmount = formatPrice(price);
   return (
-    <div className="p-6 text-center text-4xl font-bold underline">
-      Single Product
-    </div>
+    <section>
+      {/* BREADCRUMBS */}
+      <div className="text-md breadcrumbs">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/products">Products</Link>
+          </li>
+        </ul>
+      </div>
+      {/* PRODUCT */}
+      <div className="mt-6 grid gap-x-16 gap-y-8 lg:grid-cols-2">
+        {/* IMAGE */}
+        <img
+          src={image}
+          alt={title}
+          className="h-96 w-96 rounded-lg object-cover lg:w-full"
+        />
+        {/* INFO */}
+        <div>
+          <h1 className="text-3xl font-bold capitalize">{title}</h1>
+          <h4 className="mt-2 text-xl font-bold text-neutral-content">
+            {company}
+          </h4>
+          <p className="mt-3 text-xl">{dollarsAmount}</p>
+          <p className="mt-6 leading-8">{description}</p>
+        </div>
+      </div>
+    </section>
   );
 };
 
