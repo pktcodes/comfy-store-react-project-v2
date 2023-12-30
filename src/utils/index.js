@@ -6,11 +6,11 @@ const customFetch = axios.create({
   baseURL: url,
 });
 
-const formatPrice = (price) => {
+const formatPrice = (cents) => {
   const dollarsAmount = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format((price / 100).toFixed(2));
+  }).format((cents / 100).toFixed(2));
   return dollarsAmount;
 };
 
