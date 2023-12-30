@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { Link, useLoaderData } from "react-router-dom";
 
+import { formatPrice } from "../utils";
+
 const ProductsGrid = () => {
   const { products } = useLoaderData();
 
@@ -8,6 +10,7 @@ const ProductsGrid = () => {
     <div className="grid gap-4 pt-12 md:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => {
         const { image, title, price } = product.attributes;
+        const dollarsAmount = formatPrice(price);
 
         return (
           <Link
@@ -24,7 +27,7 @@ const ProductsGrid = () => {
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title capitalize tracking-wider">{title}</h2>
-              <p className="text-secondary">${price}</p>
+              <p className="text-secondary">{dollarsAmount}</p>
             </div>
           </Link>
         );
