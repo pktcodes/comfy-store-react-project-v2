@@ -15,6 +15,11 @@ const SingleProduct = () => {
     product.attributes;
   const dollarsAmount = formatPrice(price);
   const [productColor, setProductColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+
+  const handleAmount = (event) => {
+    setAmount(parseInt(event.target.value));
+  };
 
   return (
     <section>
@@ -47,7 +52,7 @@ const SingleProduct = () => {
           <p className="mt-6 leading-8">{description}</p>
           {/* COLORS */}
           <div className="mt-6">
-            <h4 className="font-bold capitalize tracking-wider">colors</h4>
+            <h4 className="font-medium capitalize tracking-wider">colors</h4>
             <div className="mt-2">
               {colors.map((color) => {
                 return (
@@ -64,6 +69,36 @@ const SingleProduct = () => {
                 );
               })}
             </div>
+          </div>
+          {/* AMOUNT */}
+          <div className="form-control w-full max-w-xs">
+            <label
+              htmlFor="amount"
+              className="label pl-0 font-medium capitalize tracking-wider"
+            >
+              amount
+            </label>
+            <select
+              className="select select-bordered select-secondary  font-medium"
+              id="amount"
+              onChange={handleAmount}
+              value={amount}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </select>
+          </div>
+          {/* ADD TO CART */}
+          <div className="mt-10">
+            <button
+              className="btn btn-secondary uppercase"
+              onClick={() => {
+                console.log("Add to Bag");
+              }}
+            >
+              Add to bag
+            </button>
           </div>
         </div>
       </div>
