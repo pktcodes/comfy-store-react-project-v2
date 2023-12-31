@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 
 import { customFetch, formatPrice } from "../utils";
+import { useState } from "react";
 
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -13,10 +14,12 @@ const SingleProduct = () => {
   const { image, title, company, price, description, colors } =
     product.attributes;
   const dollarsAmount = formatPrice(price);
+  const [productColor, setProductColor] = useState(colors[0]);
+
   return (
     <section>
       {/* BREADCRUMBS */}
-      <div className="text-md breadcrumbs">
+      <div className="breadcrumbs text-sm">
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -42,6 +45,26 @@ const SingleProduct = () => {
           </h4>
           <p className="mt-3 text-xl">{dollarsAmount}</p>
           <p className="mt-6 leading-8">{description}</p>
+          {/* COLORS */}
+          <div className="mt-6">
+            <h4 className="font-bold capitalize tracking-wider">colors</h4>
+            <div className="mt-2">
+              {colors.map((color) => {
+                return (
+                  <button
+                    key={color}
+                    className={`badge mr-2 h-6 w-6 ${
+                      color === productColor && "border-2 border-secondary"
+                    }`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setProductColor(color);
+                    }}
+                  ></button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
