@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Link, useLoaderData } from "react-router-dom";
 
 import { formatPrice } from "../utils";
@@ -34,10 +33,6 @@ const ProductsGrid = () => {
       })}
     </div>
   );
-};
-
-ProductsGrid.propTypes = {
-  products: PropTypes.array,
 };
 
 export default ProductsGrid;
