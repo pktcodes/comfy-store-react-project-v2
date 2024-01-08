@@ -18,14 +18,6 @@ const ProductsContainer = () => {
     }`;
   };
 
-  if (totalProducts < 1) {
-    return (
-      <h5 className="mt-16 text-center  text-2xl font-bold">
-        Sorry, no products matched your search...
-      </h5>
-    );
-  }
-
   return (
     <>
       {/* HEADER */}
@@ -52,7 +44,17 @@ const ProductsContainer = () => {
       </div>
 
       {/* PRODUCTS */}
-      <div>{layout === "grid" ? <ProductsGrid /> : <ProductsList />}</div>
+      <div>
+        {totalProducts < 1 ? (
+          <h5 className="mt-16 text-center text-2xl">
+            Sorry, no products matched your search...
+          </h5>
+        ) : layout === "grid" ? (
+          <ProductsGrid />
+        ) : (
+          <ProductsList />
+        )}
+      </div>
     </>
   );
 };

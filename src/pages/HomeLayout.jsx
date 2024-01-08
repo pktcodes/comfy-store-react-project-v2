@@ -4,13 +4,13 @@ import { Header, Loading, Navbar } from "../components";
 
 const HomeLayout = () => {
   const navigation = useNavigation();
-  const isLoading = navigation.state === "loading";
+  const isPageLoading = navigation.state === "loading";
 
   return (
     <>
       <Header />
       <Navbar />
-      {isLoading ? (
+      {isPageLoading ? (
         <Loading />
       ) : (
         <section className="align-element py-20">

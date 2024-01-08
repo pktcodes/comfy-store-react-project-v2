@@ -20,7 +20,7 @@ FormCheckbox.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   size: PropTypes.string,
-  defaultValue: PropTypes.bool,
+  defaultValue: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 export default FormCheckbox;
