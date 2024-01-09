@@ -56,9 +56,9 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {/* THEME TOGGLE SETUP */}
-          <label className="swap swap-rotate">
+          <label htmlFor="themeToggle" className="swap swap-rotate">
             {/* this hidden checkbox controls the state */}
-            <input type="checkbox" onClick={handleTheme} />
+            <input id="themeToggle" type="checkbox" onClick={handleTheme} />
             {/* sun icon */}
             <BsSunFill className="swap-on h-4 w-4" />
             {/* moon icon */}
