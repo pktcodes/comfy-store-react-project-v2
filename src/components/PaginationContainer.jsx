@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 
 const PaginationContainer = () => {
   const { meta } = useLoaderData();
@@ -8,8 +8,13 @@ const PaginationContainer = () => {
     return index + 1;
   });
 
+  const { search, pathname } = useLocation();
+  const navigate = useNavigate();
+
   const handlePageChange = (pageNumber) => {
-    console.log(pageNumber);
+    const searchParams = new URLSearchParams(search);
+    searchParams.set("page", pageNumber);
+    navigate(`${pathname}?${searchParams.toString()}`);
   };
 
   if (pageCount < 2) {
@@ -21,8 +26,14 @@ const PaginationContainer = () => {
       <div className="join ">
         <button
           type="button"
-          className="btn join-item btn-xs sm:btn-sm"
-          onClick={() => handlePageChange("prev")}
+          className="btn join-item btn-sm sm:btn-md"
+          onClick={() => {
+            let prevPage = page - 1;
+            if (prevPage < 1) {
+              prevPage = pageCount;
+            }
+            handlePageChange(prevPage);
+          }}
         >
           PREV
         </button>
@@ -31,7 +42,7 @@ const PaginationContainer = () => {
             <button
               type="button"
               key={pageNumber}
-              className={`btn join-item btn-xs sm:btn-sm ${
+              className={`btn join-item btn-sm sm:btn-md ${
                 pageNumber === page && "border-base-300 bg-base-300"
               }`}
               onClick={() => {
@@ -44,9 +55,13 @@ const PaginationContainer = () => {
         })}
         <button
           type="button"
-          className="btn join-item btn-xs border-none sm:btn-sm"
+          className="btn join-item btn-sm border-none sm:btn-md"
           onClick={() => {
-            handlePageChange("next");
+            let nextPage = page + 1;
+            if (nextPage > pageCount) {
+              nextPage = 1;
+            }
+            handlePageChange(nextPage);
           }}
         >
           NEXT
