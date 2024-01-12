@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import { BsFillGridFill, BsList } from "react-icons/bs";
@@ -6,11 +6,19 @@ import { BsFillGridFill, BsList } from "react-icons/bs";
 import ProductsGrid from "./ProductsGrid";
 import ProductsList from "./ProductsList";
 
+const getLayoutFromLocalStorage = () => {
+  return localStorage.getItem("layout");
+};
+
 const ProductsContainer = () => {
   const { meta } = useLoaderData();
   const totalProducts = meta.pagination.total;
 
-  const [layout, setLayout] = useState("grid");
+  const [layout, setLayout] = useState(getLayoutFromLocalStorage() || "grid");
+
+  useEffect(() => {
+    return localStorage.setItem("layout", layout);
+  }, [layout]);
 
   const setActiveStyles = (pattern) => {
     return `btn btn-circle btn-sm text-xl ${
