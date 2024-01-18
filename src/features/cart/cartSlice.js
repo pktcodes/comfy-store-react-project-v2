@@ -4,15 +4,19 @@ import { toast } from "react-toastify";
 const defaultState = {
   cartItems: [],
   numberOfItemsInCart: 0,
-  cartSubTotal: 0,
+  subTotal: 0,
   shipping: 500,
   tax: 0,
   orderTotal: 0,
 };
 
+const getCartFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("cart")) || defaultState;
+};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: defaultState,
+  initialState: getCartFromLocalStorage(),
   reducers: {
     addItem: (state, action) => {
       const { product } = action.payload;
@@ -25,11 +29,14 @@ const cartSlice = createSlice({
         state.cartItems.push(product);
       }
       state.numberOfItemsInCart += product.amount;
-      state.cartSubTotal += product.price;
-      state.tax = 0.7 * state.cartSubTotal;
-      state.orderTotal = state.cartSubTotal + state.tax + state.shipping;
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      state.subTotal += product.price * product.amount;
+      cartSlice.caseReducers.calculateTotals(state);
       toast.success("Item added to cart");
+    },
+    calculateTotals: (state) => {
+      state.tax = 0.7 * state.subTotal;
+      state.orderTotal = state.subTotal + state.tax + state.shipping;
+      localStorage.setItem("cart", JSON.stringify(state));
     },
   },
 });
