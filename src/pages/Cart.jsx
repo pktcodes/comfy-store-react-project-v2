@@ -11,7 +11,7 @@ const Cart = () => {
   );
 
   if (numberOfItemsInCart === 0) {
-    return <SectionTitle text="You cart is empty" />;
+    return <SectionTitle text="Your cart is empty" />;
   }
 
   return (

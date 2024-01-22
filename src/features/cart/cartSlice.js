@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 const defaultState = {
   cartItems: [],
   numberOfItemsInCart: 0,
-  subTotal: 0,
+  subtotal: 0,
   shipping: 500,
   tax: 0,
   orderTotal: 0,
@@ -29,7 +29,7 @@ const cartSlice = createSlice({
         state.cartItems.push(product);
       }
       state.numberOfItemsInCart += product.amount;
-      state.subTotal += product.price * product.amount;
+      state.subtotal += product.price * product.amount;
       cartSlice.caseReducers.calculateTotals(state);
       toast.success("Item added to cart");
     },
@@ -44,7 +44,7 @@ const cartSlice = createSlice({
       );
       state.cartItems.filter((item) => item.cartID !== cartID);
       state.numberOfItemsInCart -= findProductInCart.amount;
-      state.subTotal -= findProductInCart.price * findProductInCart.amount;
+      state.subtotal -= findProductInCart.price * findProductInCart.amount;
       cartSlice.caseReducers.calculateTotals(state);
       toast.error("Item removed from cart");
     },
@@ -54,15 +54,15 @@ const cartSlice = createSlice({
         item.cartID === cartID;
       });
       state.numberOfItemsInCart += amount - findProductInCart.amount;
-      state.subTotal +=
+      state.subtotal +=
         findProductInCart.price * (amount - findProductInCart.amount);
       state.amount = amount;
       cartSlice.caseReducers.calculateTotals(state);
       toast.success("Cart updated");
     },
     calculateTotals: (state) => {
-      state.tax = 0.7 * state.subTotal;
-      state.orderTotal = state.subTotal + state.tax + state.shipping;
+      state.tax = 0.1 * state.subtotal;
+      state.orderTotal = state.subtotal + state.tax + state.shipping;
       localStorage.setItem("cart", JSON.stringify(state));
     },
   },
