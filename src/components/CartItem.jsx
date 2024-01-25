@@ -1,9 +1,23 @@
+import PropTypes from "prop-types";
+
+import { useDispatch } from "react-redux";
+
+import { editItem, removeItem } from "../features/cart/cartSlice";
 import { formatPrice, generateAmountInputs } from "../utils";
 
 const CartItem = ({ cartItem }) => {
-  console.log(cartItem);
   const { cartID, image, title, company, productColor, amount, price } =
     cartItem;
+
+  const dispatch = useDispatch();
+
+  const handleAmount = (event) => {
+    dispatch(editItem({ cartID, amount: parseInt(event.target.value) }));
+  };
+
+  const handleRemoveItemFromCart = () => {
+    dispatch(removeItem({ cartID }));
+  };
 
   return (
     <article className="mb-12 flex flex-col flex-wrap gap-y-4 border-b border-base-300 pb-6 last:border-b-0 sm:flex-row">
@@ -40,12 +54,17 @@ const CartItem = ({ cartItem }) => {
             id="amount"
             name="amount"
             className="select select-bordered select-ghost select-xs mt-2"
+            value={amount}
+            onChange={handleAmount}
           >
             {generateAmountInputs(amount + 5)}
           </select>
         </div>
         {/* REMOVE */}
-        <button className="link-hover link link-primary mt-2 text-sm">
+        <button
+          className="link-hover link link-primary mt-2 text-sm"
+          onClick={handleRemoveItemFromCart}
+        >
           remove
         </button>
       </div>
@@ -53,6 +72,10 @@ const CartItem = ({ cartItem }) => {
       <p className="font-medium sm:ml-auto">{formatPrice(price)}</p>
     </article>
   );
+};
+
+CartItem.propTypes = {
+  cartItem: PropTypes.object,
 };
 
 export default CartItem;

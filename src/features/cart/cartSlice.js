@@ -42,7 +42,9 @@ const cartSlice = createSlice({
       const findProductInCart = state.cartItems.find(
         (item) => item.cartID === cartID,
       );
-      state.cartItems.filter((item) => item.cartID !== cartID);
+      state.cartItems = state.cartItems.filter(
+        (item) => item.cartID !== cartID,
+      );
       state.numberOfItemsInCart -= findProductInCart.amount;
       state.subtotal -= findProductInCart.price * findProductInCart.amount;
       cartSlice.caseReducers.calculateTotals(state);
@@ -50,13 +52,13 @@ const cartSlice = createSlice({
     },
     editItem: (state, action) => {
       const { cartID, amount } = action.payload;
-      const findProductInCart = state.cartItems.find((item) => {
-        item.cartID === cartID;
-      });
+      const findProductInCart = state.cartItems.find(
+        (item) => item.cartID === cartID,
+      );
       state.numberOfItemsInCart += amount - findProductInCart.amount;
       state.subtotal +=
         findProductInCart.price * (amount - findProductInCart.amount);
-      state.amount = amount;
+      findProductInCart.amount = amount;
       cartSlice.caseReducers.calculateTotals(state);
       toast.success("Cart updated");
     },
@@ -68,6 +70,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem } = cartSlice.actions;
+export const { addItem, editItem, removeItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
