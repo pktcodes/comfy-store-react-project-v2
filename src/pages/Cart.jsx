@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { CartItemsList, CartTotals, SectionTitle } from "../components";
 
 const Cart = () => {
-  const isUserLoggedIn = null;
+  const user = useSelector((state) => state.userState.user);
 
   const numberOfItemsInCart = useSelector(
     (state) => state.cartState.numberOfItemsInCart,
@@ -25,7 +25,7 @@ const Cart = () => {
         {/* CART TOTALS */}
         <div className="lg:col-span-4 lg:pl-4">
           <CartTotals />
-          {isUserLoggedIn ? (
+          {user ? (
             <Link
               to="/checkout"
               className="btn btn-primary btn-block mt-8 uppercase"
