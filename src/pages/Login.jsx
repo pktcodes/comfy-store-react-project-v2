@@ -2,9 +2,11 @@ import { Form, Link } from "react-router-dom";
 
 import { FormInput, SubmitButton } from "../components";
 
-export const action = () => {
-  console.log("Action");
-  return null;
+export const action = (store) => {
+  console.log(store);
+  return () => {
+    return null;
+  };
 };
 
 const Login = () => {
