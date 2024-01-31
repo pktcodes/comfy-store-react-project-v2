@@ -73,9 +73,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
-    action: () => {
-      return loginAction(store);
-    },
+    action: loginAction(store),
   },
   {
     path: "/register",
