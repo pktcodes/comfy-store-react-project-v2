@@ -1,6 +1,24 @@
+import { useSelector } from "react-redux";
+
+import { CartTotals, CheckoutForm, SectionTitle } from "../components";
+
 const Checkout = () => {
+  const numberOfItemsInCart = useSelector(
+    (state) => state.cartState.numberOfItemsInCart,
+  );
+
+  if (numberOfItemsInCart === 0) {
+    return <SectionTitle text="Your cart is empty" />;
+  }
+
   return (
-    <div className="p-6 font-bold text-center underline text-4xl">Checkout</div>
+    <>
+      <SectionTitle text="Place your order" />
+      <div className="mt-8 grid sm:gap-8 md:grid-cols-2">
+        <CheckoutForm />
+        <CartTotals />
+      </div>
+    </>
   );
 };
 
