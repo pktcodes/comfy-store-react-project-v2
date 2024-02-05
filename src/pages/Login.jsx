@@ -1,10 +1,10 @@
+import { useDispatch } from "react-redux";
 import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { FormInput, SubmitButton } from "../components";
 import { loginUser } from "../features/user/userSlice";
 import { customFetch } from "../utils";
-import { useDispatch } from "react-redux";
 
 export const action =
   (store) =>
