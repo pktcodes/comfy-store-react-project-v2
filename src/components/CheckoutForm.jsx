@@ -46,7 +46,7 @@ export const action =
       const errorMessage =
         error?.response?.data?.error?.message ||
         "There was an error placing your order";
-      if (error.response.status === 401) {
+      if (error.response.status === 401 || error.response.status === 403) {
         return redirect("/login");
       }
       return toast.error(errorMessage);
