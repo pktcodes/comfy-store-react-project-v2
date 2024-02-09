@@ -1,6 +1,5 @@
 import Filters from "../components/Filters";
-import PaginationContainer from "../components/PaginationContainer";
-import ProductsContainer from "../components/ProductsContainer";
+import { PaginationContainer, ProductsContainer } from "../components";
 
 import { customFetch } from "../utils";
 
