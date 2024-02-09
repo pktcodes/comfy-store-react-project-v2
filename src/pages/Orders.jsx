@@ -1,18 +1,40 @@
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const loader = (store) => async () => {
-  const { user } = store.getState().userState;
+import { customFetch } from "../utils";
 
-  if (!user) {
-    toast.warn(
-      "You must be logged in to view ordersPlease login to access orders",
-    );
-    return redirect("/login");
-  }
+export const loader =
+  (store) =>
+  async ({ request }) => {
+    const { user } = store.getState().userState;
 
-  return null;
-};
+    if (!user) {
+      toast.warn("You must be logged in to view orders");
+      return redirect("/login");
+    }
+
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
+
+    try {
+      const response = await customFetch.get("/orders", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      return { orders: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        "There was an error fetching your orders";
+      if (error.response.status === 401 || error.response.status === 403) {
+        return redirect("/login");
+      }
+      return toast.error(errorMessage);
+    }
+  };
 
 const Orders = () => {
   return (
