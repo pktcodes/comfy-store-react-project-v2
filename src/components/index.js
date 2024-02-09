@@ -13,3 +13,4 @@ export { default as CheckoutForm } from "./CheckoutForm";
 export { default as OrdersList } from "./OrdersList";
 export { default as PaginationContainer } from "./PaginationContainer";
 export { default as ProductsContainer } from "./ProductsContainer";
+export { default as Filters } from "./Filters";

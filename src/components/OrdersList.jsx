@@ -1,4 +1,7 @@
 import { useLoaderData } from "react-router-dom";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+dayjs.extend(advancedFormat);
 
 const OrdersList = () => {
   const { orders, meta } = useLoaderData();
@@ -26,14 +29,14 @@ const OrdersList = () => {
               const id = order.id;
               const { name, address, numItemsInCart, orderTotal, createdAt } =
                 order.attributes;
-              console.log(createdAt);
+              const date = dayjs(createdAt).format("hh:mm a - MMM Do, YYYY");
               return (
                 <tr key={id}>
                   <td>{name}</td>
                   <td>{address}</td>
                   <td>{numItemsInCart}</td>
                   <td>{orderTotal}</td>
-                  <td className="hidden sm:table-cell">{createdAt}</td>
+                  <td className="hidden sm:table-cell">{date}</td>
                 </tr>
               );
             })}
