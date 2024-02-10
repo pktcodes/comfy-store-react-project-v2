@@ -14,3 +14,4 @@ export { default as OrdersList } from "./OrdersList";
 export { default as PaginationContainer } from "./PaginationContainer";
 export { default as ProductsContainer } from "./ProductsContainer";
 export { default as Filters } from "./Filters";
+export { default as ComplexPaginationContainer } from "./ComplexPaginationContainer";
