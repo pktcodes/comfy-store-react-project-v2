@@ -8,32 +8,39 @@ import {
 } from "../components";
 import { customFetch } from "../utils";
 
-export const loader = (store) => async () => {
-  const { user } = store.getState().userState;
+export const loader =
+  (store) =>
+  async ({ request }) => {
+    const { user } = store.getState().userState;
 
-  if (!user) {
-    toast.warn("You must be logged in to view orders");
-    return redirect("/login");
-  }
-
-  try {
-    const response = await customFetch.get("/orders", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    return { orders: response.data.data, meta: response.data.meta };
-  } catch (error) {
-    console.log(error);
-    const errorMessage =
-      error?.response?.data?.error?.message ||
-      "There was an error fetching your orders";
-    if (error.response.status === 401 || error.response.status === 403) {
+    if (!user) {
+      toast.warn("You must be logged in to view orders");
       return redirect("/login");
     }
-    return toast.error(errorMessage);
-  }
-};
+
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
+
+    try {
+      const response = await customFetch.get("/orders", {
+        params: params,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      return { orders: response.data.data, meta: response.data.meta };
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        "There was an error fetching your orders";
+      if (error.response.status === 401 || error.response.status === 403) {
+        return redirect("/login");
+      }
+      return toast.error(errorMessage);
+    }
+  };
 
 const Orders = () => {
   const { meta } = useLoaderData();

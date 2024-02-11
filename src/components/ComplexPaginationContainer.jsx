@@ -35,7 +35,39 @@ const ComplexPaginationContainer = () => {
   };
 
   const renderPageButtons = () => {
-    return <></>;
+    const pageButtons = [];
+
+    /* First Button */
+    pageButtons.push(addPageButton({ pageNumber: 1, activeClass: page === 1 }));
+
+    /* Dots */
+    if (page > 2) {
+      pageButtons.push(
+        <button className="btn join-item btn-sm sm:btn-md" key="dots-1">
+          ...
+        </button>,
+      );
+    }
+
+    /* Active Button */
+    if (page !== 1 && page !== pageCount) {
+      pageButtons.push(addPageButton({ pageNumber: page, activeClass: true }));
+    }
+
+    /* Dots */
+    if (page < pageCount - 1) {
+      pageButtons.push(
+        <button className="btn join-item btn-sm sm:btn-md" key="dots-2">
+          ...
+        </button>,
+      );
+    }
+
+    /* Last Button */
+    pageButtons.push(
+      addPageButton({ pageNumber: pageCount, activeClass: page === pageCount }),
+    );
+    return pageButtons;
   };
 
   return (
