@@ -8,8 +8,25 @@ import {
 } from "../components";
 import { customFetch } from "../utils";
 
+const ordersQuery = (params, user) => {
+  return {
+    queryKey: [
+      "orders",
+      params.page ? parseInt(params.page) : 1,
+      user.username,
+    ],
+    queryFn: () =>
+      customFetch.get("/orders", {
+        params: params,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }),
+  };
+};
+
 export const loader =
-  (store) =>
+  (store, queryClient) =>
   async ({ request }) => {
     const { user } = store.getState().userState;
 
@@ -22,13 +39,11 @@ export const loader =
       ...new URL(request.url).searchParams.entries(),
     ]);
 
+    console.log(user);
     try {
-      const response = await customFetch.get("/orders", {
-        params: params,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await queryClient.ensureQueryData(
+        ordersQuery(params, user),
+      );
       return { orders: response.data.data, meta: response.data.meta };
     } catch (error) {
       console.log(error);
