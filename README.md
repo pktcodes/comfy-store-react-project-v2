@@ -23,7 +23,7 @@
 - Routing is implemented using **React Router**, **React Query** is used for caching the data requests, and **Daisy UI** for CSS components.
 - To run the project locally, clone the repo, `npm install` to install the dependencies, and `npm run dev` to start up the development server on default port 5173.
 
-#### Languages
+#### Languages / Technologies
 
 HTML, CSS, JavaScript, ECMAScript, React
 
